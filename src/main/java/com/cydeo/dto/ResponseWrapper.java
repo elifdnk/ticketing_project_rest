@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseWrapper {
+public class ResponseWrapper { //Customize JSON structure
 
     private boolean success;
     private String message;
