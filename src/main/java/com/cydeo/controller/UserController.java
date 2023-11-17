@@ -40,7 +40,7 @@ public class UserController {
     @RolesAllowed({"Admin"})
     public ResponseEntity<ResponseWrapper> createUser(@RequestBody UserDTO user){
         userService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseWrapper("user successfullt created",HttpStatus.CREATED));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseWrapper("user successfully created",HttpStatus.CREATED));
     }
 
     @PutMapping

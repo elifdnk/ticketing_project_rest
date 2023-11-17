@@ -49,7 +49,7 @@ public class KeycloakServiceImpl implements KeycloakService {
 
         Keycloak keycloak = getKeycloakInstance();//to able to do some action in keycloak,we need to create open a instance first in the keycloak
                                                   //it is same concept with  DB, if we want to do anything DB, we first open transection
-        RealmResource realmResource = keycloak.realm(keycloakProperties.getRealm());
+        RealmResource realmResource = keycloak.realm(keycloakProperties.getRealm()); //which realm you working?
         UsersResource usersResource = realmResource.users();
 
         // Create Keycloak user
@@ -79,7 +79,7 @@ public class KeycloakServiceImpl implements KeycloakService {
         UsersResource usersResource = realmResource.users();
 
         List<UserRepresentation> userRepresentations = usersResource.search(userName);
-        String uid = userRepresentations.get(0).getId();
+        String uid = userRepresentations.get(0).getId(); //every id unique. because of this delete the id.
         usersResource.delete(uid);
 
         keycloak.close();
