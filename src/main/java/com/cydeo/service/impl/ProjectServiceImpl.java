@@ -11,7 +11,10 @@ import com.cydeo.repository.ProjectRepository;
 import com.cydeo.service.ProjectService;
 import com.cydeo.service.TaskService;
 import com.cydeo.service.UserService;
+import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -97,11 +100,16 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectDTO> listAllProjectDetails() {
 
-        UserDTO currentUserDTO = userService.findByUserName("harold@manager.com");
+        //From token we get the username
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); //getting info from springboot. who is login in this place?
+        SimpleKeycloakAccount details =(SimpleKeycloakAccount) authentication.getDetails(); //going to token
+        String username = details.getKeycloakSecurityContext().getToken().getPreferredUsername(); //get the username
+
+        UserDTO currentUserDTO = userService.findByUserName(username); //pass that username our method
 
         User user = userMapper.convertToEntity(currentUserDTO);
 
-        List<Project> list = projectRepository.findAllByAssignedManager(user);
+        List<Project> list = projectRepository.findAllByAssignedManager(user); //show all project
 
 
         return list.stream().map(project -> {
