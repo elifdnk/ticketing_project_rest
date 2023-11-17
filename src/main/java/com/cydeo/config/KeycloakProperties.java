@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Setter
 public class KeycloakProperties { //we created different class because, in different places in app, we can use these field.
 
-    @Value("${keycloak.realm}")
+    @Value("${keycloak.realm}") //@value= we read something in the application properties.
     private String realm;
     @Value("${keycloak.auth-server-url}")
     private String authServerUrl;
