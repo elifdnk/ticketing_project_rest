@@ -1,5 +1,6 @@
 package com.cydeo.controller;
 
+import com.cydeo.annotation.ExecutionTime;
 import com.cydeo.dto.ResponseWrapper;
 import com.cydeo.dto.UserDTO;
 import com.cydeo.exception.TicketingProjectException;
@@ -26,6 +27,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @ExecutionTime //I want to see what is execution time of this method
     @GetMapping
     @RolesAllowed({"Manager","Admin"})  //set up restrictions
     @Operation(summary = "Get Users")
@@ -34,6 +36,7 @@ public class UserController {
         return ResponseEntity.ok(new ResponseWrapper("users are successfully retrieves",userDTOList, HttpStatus.OK));
     }
 
+    @ExecutionTime  //I want to see what is execution time of this method
     @GetMapping("/{username}")
     @RolesAllowed({"Admin"})
     @Operation(summary = "Get User by username")
